@@ -15,3 +15,5 @@
 - Removal requests are demo-only (is_demo=true, status mock/unsupported) until a real provider integration exists; never mark demo rows pending/confirmed.
 - Phone verification fields are guarded by a trigger; only an admin RPC or a future trusted verification service may change them.
 - PWA is manifest-only (no service worker) to keep previews safe.
+- New private tester access uses fail-closed authenticated server functions plus an isolated-only SQL RPC; never enable or install it against the shared backend, because development must not change existing users or production auth.
+- Private tester roles are separate from platform staff roles and confer no access to phone, consent, support or legal data; only a verified, out-of-band provisioned owner may grant access.
