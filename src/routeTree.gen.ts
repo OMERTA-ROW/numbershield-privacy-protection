@@ -22,12 +22,14 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SecurityRouteImport } from './routes/security'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as TesterInviteRouteImport } from './routes/tester-invite'
 import { Route as AuthenticatedActivateRouteImport } from './routes/_authenticated/activate'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAlertsRouteImport } from './routes/_authenticated/alerts'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedLegalRouteImport } from './routes/_authenticated/legal'
 import { Route as AuthenticatedNumbersRouteImport } from './routes/_authenticated/numbers'
+import { Route as AuthenticatedOwnerRouteImport } from './routes/_authenticated/owner'
 import { Route as AuthenticatedRequestsRouteImport } from './routes/_authenticated/requests'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedTeamRouteImport } from './routes/_authenticated/team'
@@ -97,6 +99,11 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TesterInviteRoute = TesterInviteRouteImport.update({
+  id: '/tester-invite',
+  path: '/tester-invite',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedActivateRoute = AuthenticatedActivateRouteImport.update({
   id: '/activate',
   path: '/activate',
@@ -125,6 +132,11 @@ const AuthenticatedLegalRoute = AuthenticatedLegalRouteImport.update({
 const AuthenticatedNumbersRoute = AuthenticatedNumbersRouteImport.update({
   id: '/numbers',
   path: '/numbers',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedOwnerRoute = AuthenticatedOwnerRouteImport.update({
+  id: '/owner',
+  path: '/owner',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedRequestsRoute = AuthenticatedRequestsRouteImport.update({
@@ -162,12 +174,14 @@ export interface FileRoutesByFullPath {
   '/security': typeof SecurityRoute
   '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
+  '/tester-invite': typeof TesterInviteRoute
   '/activate': typeof AuthenticatedActivateRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/alerts': typeof AuthenticatedAlertsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/legal': typeof AuthenticatedLegalRoute
   '/numbers': typeof AuthenticatedNumbersRoute
+  '/owner': typeof AuthenticatedOwnerRoute
   '/requests': typeof AuthenticatedRequestsRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/team': typeof AuthenticatedTeamRoute
@@ -186,12 +200,14 @@ export interface FileRoutesByTo {
   '/security': typeof SecurityRoute
   '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
+  '/tester-invite': typeof TesterInviteRoute
   '/activate': typeof AuthenticatedActivateRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/alerts': typeof AuthenticatedAlertsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/legal': typeof AuthenticatedLegalRoute
   '/numbers': typeof AuthenticatedNumbersRoute
+  '/owner': typeof AuthenticatedOwnerRoute
   '/requests': typeof AuthenticatedRequestsRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/team': typeof AuthenticatedTeamRoute
@@ -212,12 +228,14 @@ export interface FileRoutesById {
   '/security': typeof SecurityRoute
   '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
+  '/tester-invite': typeof TesterInviteRoute
   '/_authenticated/activate': typeof AuthenticatedActivateRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/alerts': typeof AuthenticatedAlertsRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/legal': typeof AuthenticatedLegalRoute
   '/_authenticated/numbers': typeof AuthenticatedNumbersRoute
+  '/_authenticated/owner': typeof AuthenticatedOwnerRoute
   '/_authenticated/requests': typeof AuthenticatedRequestsRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/team': typeof AuthenticatedTeamRoute
@@ -238,12 +256,14 @@ export interface FileRouteTypes {
     | '/security'
     | '/support'
     | '/terms'
+    | '/tester-invite'
     | '/activate'
     | '/admin'
     | '/alerts'
     | '/dashboard'
     | '/legal'
     | '/numbers'
+    | '/owner'
     | '/requests'
     | '/settings'
     | '/team'
@@ -262,12 +282,14 @@ export interface FileRouteTypes {
     | '/security'
     | '/support'
     | '/terms'
+    | '/tester-invite'
     | '/activate'
     | '/admin'
     | '/alerts'
     | '/dashboard'
     | '/legal'
     | '/numbers'
+    | '/owner'
     | '/requests'
     | '/settings'
     | '/team'
@@ -287,12 +309,14 @@ export interface FileRouteTypes {
     | '/security'
     | '/support'
     | '/terms'
+    | '/tester-invite'
     | '/_authenticated/activate'
     | '/_authenticated/admin'
     | '/_authenticated/alerts'
     | '/_authenticated/dashboard'
     | '/_authenticated/legal'
     | '/_authenticated/numbers'
+    | '/_authenticated/owner'
     | '/_authenticated/requests'
     | '/_authenticated/settings'
     | '/_authenticated/team'
@@ -313,6 +337,7 @@ export interface RootRouteChildren {
   SecurityRoute: typeof SecurityRoute
   SupportRoute: typeof SupportRoute
   TermsRoute: typeof TermsRoute
+  TesterInviteRoute: typeof TesterInviteRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -408,6 +433,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tester-invite': {
+      id: '/tester-invite'
+      path: '/tester-invite'
+      fullPath: '/tester-invite'
+      preLoaderRoute: typeof TesterInviteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/activate': {
       id: '/_authenticated/activate'
       path: '/activate'
@@ -450,6 +482,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedNumbersRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/owner': {
+      id: '/_authenticated/owner'
+      path: '/owner'
+      fullPath: '/owner'
+      preLoaderRoute: typeof AuthenticatedOwnerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/requests': {
       id: '/_authenticated/requests'
       path: '/requests'
@@ -488,6 +527,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedLegalRoute: typeof AuthenticatedLegalRoute
   AuthenticatedNumbersRoute: typeof AuthenticatedNumbersRoute
+  AuthenticatedOwnerRoute: typeof AuthenticatedOwnerRoute
   AuthenticatedRequestsRoute: typeof AuthenticatedRequestsRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedTeamRoute: typeof AuthenticatedTeamRoute
@@ -501,6 +541,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedLegalRoute: AuthenticatedLegalRoute,
   AuthenticatedNumbersRoute: AuthenticatedNumbersRoute,
+  AuthenticatedOwnerRoute: AuthenticatedOwnerRoute,
   AuthenticatedRequestsRoute: AuthenticatedRequestsRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedTeamRoute: AuthenticatedTeamRoute,
@@ -524,6 +565,7 @@ const rootRouteChildren: RootRouteChildren = {
   SecurityRoute: SecurityRoute,
   SupportRoute: SupportRoute,
   TermsRoute: TermsRoute,
+  TesterInviteRoute: TesterInviteRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
