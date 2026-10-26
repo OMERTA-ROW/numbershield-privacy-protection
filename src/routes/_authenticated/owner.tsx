@@ -2,11 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import type { z } from "zod";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ownerAccess } from "@/lib/owner-access.functions";
+import { ownerCommand } from "@/lib/owner-access";
 import { seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/_authenticated/owner")({ head: () => seo("Private owner access", "Verified NumberShield owner invitations and private tester membership."), component: Page });
@@ -20,7 +22,7 @@ function Page() {
   const [role, setRole] = useState<"tester" | "manager">("tester");
   const [link, setLink] = useState("");
   const [busy, setBusy] = useState(false);
-  async function run(data: Parameters<typeof call>[0]["data"]) {
+  async function run(data: z.infer<typeof ownerCommand>) {
     setBusy(true);
     try { const result = await call({ data }); await qc.invalidateQueries({ queryKey: ["owner-access"] }); return result; }
     catch (error) { toast.error(error instanceof Error ? error.message : "Access unavailable"); }
